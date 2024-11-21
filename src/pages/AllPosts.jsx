@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 
 function AllPosts() {
   const posts = useSelector((state) => state.post.posts.documents);
-
+  console.log(posts)
   return (
     <div>
       <Container>

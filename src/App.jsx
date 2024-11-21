@@ -5,10 +5,23 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { login, logout } from "./store/authSlice";
 import spinner from "/spinner.svg";
+import appwriteService from "./appwrite/config";
+import { addPost } from "./store/postSlice";
 
 function App() {
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
+
+
+  const posts = useSelector((state) => state.post.posts.documents);
+
+  useEffect(() => {
+    appwriteService.getPosts().then((posts) => {
+      if (posts) {
+        dispatch(addPost(posts));
+      }
+    });
+  }, [posts]);
 
   useEffect(() => {
     authService
