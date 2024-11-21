@@ -39,7 +39,7 @@ function PostForm({ post }) {
 
       try {
         const file = data.image[0]
-          ? await appwriteStorage.uploadFile(data.image)
+          ? await appwriteStorage.uploadFile(data.image[0])
           : null;
 
         if (file) {
