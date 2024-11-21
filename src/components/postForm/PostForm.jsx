@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import spinner from "/spinner.svg";
 
 function PostForm({ post }) {
+
   const userData = useSelector((state) => state.auth.userData);
   const [lodding, setLodding] = React.useState(false);
   const [error, setError] = React.useState(null);
@@ -72,6 +73,8 @@ function PostForm({ post }) {
           const dbPost = await appwriteService.createPost({
             ...data,
             userId: userData.$id,
+            userName: userData.name,
+            userEmail : userData.email,
           });
 
           if (dbPost) {

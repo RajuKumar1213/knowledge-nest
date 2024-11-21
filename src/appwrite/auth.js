@@ -57,6 +57,17 @@ export class AuthService {
     }
     return null;
   };
+
+  // get user by uisng userId
+  getUser = async (userId) => {
+    try {
+      return await this.account.get(userId);
+      
+    } catch (error) {
+      console.log("Appwrite error :: get user error :: ", error);
+      return false;
+    }
+  }
 }
 const authService = new AuthService();
 export default authService;

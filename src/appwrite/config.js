@@ -14,7 +14,7 @@ export class AppwriteService {
         this.databases = new Databases(this.client);
     }
 
-    createPost = async ({ title, slug, content, featuredImage, status, userId }) => {
+    createPost = async ({ title, slug, content, featuredImage, status, userId, userName, userEmail }) => {
         try {
             const post = await this.databases.createDocument(
                 conf.appwriteDatabaseId,
@@ -25,7 +25,9 @@ export class AppwriteService {
                     content,
                     featuredImage,
                     status,
-                    userId
+                    userId,
+                    userName,
+                    userEmail
                 }
             );
 

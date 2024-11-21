@@ -2,8 +2,10 @@ import React, { useEffect } from "react";
 import { Button } from "./index";
 import { Link } from "react-router-dom";
 import appwriteStorage from "../appwrite/storage";
+import appwriteService from "../appwrite/config";
+import authService from "../appwrite/auth";
 
-function PostCard({ $id, title, featuredImage, content, $createdAt, userId }) {
+function PostCard({ $id, title, featuredImage, content, $createdAt, userId, userName, userEmail }) {
 
   function calculateReadTime(content) {
     const wordsPerMinute = 200; // Average reading speed
@@ -40,6 +42,13 @@ function PostCard({ $id, title, featuredImage, content, $createdAt, userId }) {
   }
  
 
+  useEffect(() => {
+    authService.getUser(userId).then((user)=> 
+      console.log(user)
+    )
+
+  }, []);
+
   return (
     <div className="relative w-full overflow-hidden rounded-lg shadow-lg border-gray-500 border p-4">
       {/* Image Section */}
@@ -52,6 +61,7 @@ function PostCard({ $id, title, featuredImage, content, $createdAt, userId }) {
       <h2 className="pt-4  text-lg md:text-xl font-bold text-white">{title.length>25 ? title?.substring(0,25):title}{title.length>25? "..." : ""}</h2>
       <p className="pt-2 text-sm text-gray-400">{calculateReadTime(content)}</p>
       <p className="pt-2 text-sm text-gray-400">{formatDateTime($createdAt)}</p>
+      <p className="pt-2 text-sm text-gray-400">By: {userName}</p>
       {/* <p className="pt-2 text-sm text-gray-400">By: {}</p> */}
       <Link to={`/post/${$id}`} className="cursor-pointer">
         <Button>Read full article</Button>
