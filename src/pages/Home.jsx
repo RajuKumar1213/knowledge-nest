@@ -50,9 +50,9 @@ function Home() {
       </Container>
     </div>
   ) : (
-    <div className="w-full py-8">
+    <div className="w-full py-4">
       <Container>
-        <div className="flex flex-col items-center text-white  px-6">
+        <div className="flex flex-col items-center text-white  ">
           {/* Welcome Section */}
           <div className="text-center w-full mb-10">
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-yellow-300 drop-shadow-lg mb-4">
@@ -69,7 +69,7 @@ function Home() {
           </div>
 
           {/* Call to Action Buttons */}
-          <div className="text-center mb-12 flex flex-col sm:flex-row gap-4">
+          <div className="text-center mb-4 flex flex-col sm:flex-row gap-4">
             <Link to="/add-post">
               <button className="bg-blue-600 hover:bg-blue-800 text-white font-bold py-3 px-6 sm:px-8 rounded-md">
                 ✍️ Create a New Post
@@ -83,7 +83,7 @@ function Home() {
           </div>
 
           {/* Motivational Section */}
-          <div className="text-center w-full my-12">
+          <div className="text-center w-full py-4">
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-200 mb-4">
               "Creativity is intelligence having fun." – Albert Einstein
             </h2>
@@ -99,6 +99,7 @@ function Home() {
             <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-100 mb-8 text-center">
               📝 Your Contributions
             </h3>
+            {!posts && <h2 className="text-xl text-center mb-4 ">No Contribution yet, click on create new post to contribute.</h2>}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {posts ? (
                 posts
@@ -106,7 +107,7 @@ function Home() {
                   .map((post) => (
                     <div
                       key={post.$id}
-                      className="bg-gray-800 p-4 rounded-lg shadow-lg hover:shadow-xl transition-transform duration-300 transform hover:scale-105"
+                      className="bg-gray-800  rounded-lg shadow-lg hover:shadow-xl transition-transform duration-300 transform hover:scale-105"
                     >
                       <PostCard {...post} />
                     </div>

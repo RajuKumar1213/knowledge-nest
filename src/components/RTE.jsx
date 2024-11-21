@@ -16,7 +16,7 @@ const RTE = function RTE({ label, defaultValue = "", control, name }) {
         render={({ field: { onChange } }) => (
           <Editor
             initialValue={defaultValue}
-            apiKey="8vnwsh0jj75wuh2yb9m95cbicvb61f7r89fbmw75o82f8xea"
+            apiKey={import.meta.env.VITE_TINYMCE_API_KEY}
             init={{
               plugins: [
                 // Core editing features
