@@ -12,15 +12,18 @@ function App() {
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
 
+  const userStatus = useSelector((state) => state.auth.status);
 
   const posts = useSelector((state) => state.post.posts.documents);
 
   useEffect(() => {
-    appwriteService.getPosts().then((posts) => {
-      if (posts) {
-        dispatch(addPost(posts));
-      }
-    });
+    if (userStatus === true) {
+      appwriteService.getPosts().then((posts) => {
+        if (posts) {
+          dispatch(addPost(posts));
+        }
+      });
+    }
   }, [posts]);
 
   useEffect(() => {
@@ -35,7 +38,6 @@ function App() {
       })
       .finally(() => setLoading(false));
   }, []);
-
 
   return !loading ? (
     <div className="min-h-screen box-border bg-gradient-to-t from-indigo-950 via-slate-800 to-black text-white ">

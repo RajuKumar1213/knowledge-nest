@@ -11,11 +11,13 @@ function Home() {
   const posts = useSelector((state) => state.post.posts.documents);
 
   useEffect(() => {
-    appwriteService.getPosts().then((posts) => {
-      if (posts) {
-        dispatch(addPost(posts));
-      }
-    });
+    if (userData) {
+      appwriteService.getPosts().then((posts) => {
+        if (posts) {
+          dispatch(addPost(posts));
+        }
+      });
+    }
   }, [posts]);
 
   return !userData ? (
@@ -56,7 +58,7 @@ function Home() {
           {/* Welcome Section */}
           <div className="text-center w-full mb-10">
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-yellow-300 drop-shadow-lg mb-4">
-               Welcome to KnowledgeNest!
+              Welcome to KnowledgeNest!
             </h1>
             <p className="text-lg sm:text-xl lg:text-2xl font-semibold text-gray-300 mb-6">
               "Where thoughts take flight and creativity finds a home."
@@ -99,7 +101,11 @@ function Home() {
             <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-100 mb-8 text-center">
               📝 Your Contributions
             </h3>
-            {!posts && <h2 className="text-xl text-center mb-4 ">No Contribution yet, click on create new post to contribute.</h2>}
+            {posts?.userId !== userData.$id && (
+              <h2 className="text-xl text-center mb-4 ">
+                No Contribution yet, click on create new post to contribute.
+              </h2>
+            )}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {posts ? (
                 posts

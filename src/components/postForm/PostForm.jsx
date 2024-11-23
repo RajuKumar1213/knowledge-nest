@@ -176,7 +176,7 @@ function PostForm({ post }) {
                   post ? appwriteStorage.getFilePreview(post.featuredImage) : ""
                 }
                 alt=""
-                className="w-full object-cover h-52 rounded-lg"
+                className="w-full object-cover h-full md:h-52 rounded-lg"
               />
             </div>
           )}

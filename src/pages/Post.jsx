@@ -4,10 +4,12 @@ import { Button } from "../components";
 import appwriteStorage from "../appwrite/storage";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import appwriteService from "../appwrite/config";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import spinner from "/spinner.svg";
+import { setLoadingFalse } from "../store/loadingSlice";
 
 function Post() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [post, setPost] = useState({});
   const slug = useParams();
@@ -15,6 +17,8 @@ function Post() {
   const isAuther = post && userData ? userData.$id === post.userId : false;
   const [textSize, setTextSize] = useState(16);
 
+  const loading = useSelector((state) => state.loading.loading);
+ 
   useEffect(() => {
     if (slug) {
       appwriteService.getPost(slug).then((post) => {
@@ -25,6 +29,7 @@ function Post() {
         }
       });
     }
+    dispatch(setLoadingFalse());
   }, [slug, navigate]);
 
   const handleDelete = async () => {
@@ -35,8 +40,8 @@ function Post() {
     }
   };
 
-  return post ? (
-    <div className="flex flex-col items-start w-full text-white rounded-lg  space-y-4 ">
+  return !loading ? (
+    <div className="flex flex-col overflow-scroll items-start w-full text-white rounded-lg  space-y-4 ">
       {/* // making big and small button */}
       <div className="flex gap-x-4 w-full ">
         <button
@@ -91,7 +96,7 @@ function Post() {
           className="text-gray-400 mt-2 leading-8 pb-6 font-sans font-medium"
           style={{ fontSize: `${textSize}px` }}
         >
-          {parse(String(post.content)) }
+          {post ? parse(String(post.content)) : "loading... "}
         </div>
       </div>
     </div>

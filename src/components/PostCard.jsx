@@ -42,13 +42,6 @@ function PostCard({ $id, title, featuredImage, content, $createdAt, userId, user
   }
  
 
-  useEffect(() => {
-    authService.getUser(userId).then((user)=> 
-      console.log(user)
-    )
-
-  }, []);
-
   return (
     <div className="relative w-full overflow-hidden rounded-lg shadow-lg border-gray-500 border p-4">
       {/* Image Section */}
