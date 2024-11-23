@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { set } from "react-hook-form";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import ScrollToTop from "./ScrollToTop";
 
 function AuthLayout({ children, authentication = true }) {
   const navigate = useNavigate();
@@ -24,7 +25,13 @@ function AuthLayout({ children, authentication = true }) {
     setLoader(false);
   }, [authentication, authStatus]);
 
-  return loader ? <h1>Loading...</h1> : <div>{children}</div>;
+  return loader ? (
+    <h1>Loading...</h1>
+  ) : (
+    <ScrollToTop>
+      {children}
+    </ScrollToTop>
+  );
 }
 
 export default AuthLayout;

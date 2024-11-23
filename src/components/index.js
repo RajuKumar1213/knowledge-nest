@@ -11,6 +11,7 @@ import PostForm from "./postForm/PostForm";
 import PostCard from "./PostCard";
 import AuthLayout from "./AuthLayout";
 import ErrorPage from "./ErrorPage";
+import ScrollToTop from "./ScrollToTop";
 
 export {
     Header,
@@ -26,4 +27,5 @@ export {
     PostCard,
     AuthLayout,
     ErrorPage,
+    ScrollToTop
 }

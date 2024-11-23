@@ -5,7 +5,7 @@ import appwriteStorage from "../appwrite/storage";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import appwriteService from "../appwrite/config";
 import { useSelector } from "react-redux";
-import { set } from "react-hook-form";
+import spinner from "/spinner.svg";
 
 function Post() {
   const navigate = useNavigate();
@@ -35,7 +35,7 @@ function Post() {
     }
   };
 
-  return (
+  return post ? (
     <div className="flex flex-col items-start w-full text-white rounded-lg  space-y-4 ">
       {/* // making big and small button */}
       <div className="flex gap-x-4 w-full ">
@@ -87,11 +87,16 @@ function Post() {
       {/* Title and Description Section */}
       <div className="mt-2">
         <h2 className="text-2xl font-semibold text-white">{post.title}</h2>
-        <div className="text-gray-400 mt-2 leading-8 pb-6 font-serif font-medium" style={{ fontSize: `${textSize}px` }}>
-          {parse(String(post.content))}
+        <div
+          className="text-gray-400 mt-2 leading-8 pb-6 font-sans font-medium"
+          style={{ fontSize: `${textSize}px` }}
+        >
+          {parse(String(post.content)) }
         </div>
       </div>
     </div>
+  ) : (
+    <img src={spinner} alt="" className="w-24 mx-auto my-auto h-screen" />
   );
 }
 
