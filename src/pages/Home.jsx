@@ -22,7 +22,7 @@ function Home() {
     }
   }, []);
 
-  const userPost = posts?.filter((post) => post.userId === userData.$id);
+  const userPost = posts?.filter((post) => post?.userId === userData?.$id);
 
   console.log(userPost)
 
