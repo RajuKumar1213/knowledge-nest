@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { login as storeLogin } from "../store/authSlice";
 import authService from "../appwrite/auth";
 import spinner from "/spinner.svg";
+import { showAlert } from "../store/alertSlice";
 
 function Login() {
   const navigate = useNavigate();
@@ -15,7 +16,7 @@ function Login() {
   const {
     register,
     handleSubmit,
-    // formState: { errors },
+    formState: { errors },
   } = useForm();
 
   const login = async (data) => {
@@ -27,13 +28,17 @@ function Login() {
         const userData = await authService.getCurrentUser();
         if (userData) {
           dispatch(storeLogin(userData));
+          dispatch(
+            showAlert({ message: "Logged In Successfully", type: "success" })
+          );
           navigate("/");
           setLoading(false);
         }
       }
     } catch (error) {
+      console.log(error);
       setLoading(false);
-      setError(error.message);
+      setError(error.message || "Invalid credentials. Please try again.");
     }
   };
 
@@ -76,7 +81,11 @@ function Login() {
               pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+[a-zA-Z]{2,}$/,
             })}
           />
-          
+          {errors.email && (
+            <span className="text-red-600 text-sm">
+              Please enter valid email id.
+            </span>
+          )}
 
           <Input
             label={"Password"}
@@ -88,7 +97,6 @@ function Login() {
               maxLength: 20,
             })}
           />
-          
 
           <Button type="submit" className="w-full">
             {loading ? (

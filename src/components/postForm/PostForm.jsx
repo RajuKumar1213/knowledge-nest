@@ -1,14 +1,15 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import appwriteService from "../../appwrite/config";
 import appwriteStorage from "../../appwrite/storage";
 import { useNavigate } from "react-router-dom";
-import { Container, Input, Button, RTE, Select } from "../index";
-import { useSelector } from "react-redux";
+import { Container, Input, Button, RTE, Select, Alert } from "../index";
+import { useSelector, useDispatch } from "react-redux";
 import spinner from "/spinner.svg";
+import { showAlert } from "../../store/alertSlice";
 
 function PostForm({ post }) {
-
+  const dispatch = useDispatch();
   const userData = useSelector((state) => state.auth.userData);
   const [lodding, setLodding] = React.useState(false);
   const [error, setError] = React.useState(null);
@@ -33,7 +34,6 @@ function PostForm({ post }) {
   }, [post, setValue]);
 
   const submit = async (data) => {
-
     if (post) {
       setError("");
       setLodding(true);
@@ -53,6 +53,7 @@ function PostForm({ post }) {
         });
 
         if (dbPost) {
+          dispatch(showAlert({message:"Post Updated Successfully!", type:"success"}));
           navigate(`/post/${dbPost.$id}`);
         }
       } catch (error) {
@@ -74,10 +75,11 @@ function PostForm({ post }) {
             ...data,
             userId: userData.$id,
             userName: userData.name,
-            userEmail : userData.email,
+            userEmail: userData.email,
           });
 
           if (dbPost) {
+            dispatch(showAlert({message:"Post Creted Successfully!", type:"success"}));
             navigate(`/post/${dbPost.$id}`);
           }
           setLodding(false);
@@ -124,6 +126,7 @@ function PostForm({ post }) {
           {error}
         </p>
       )}
+
       <form className="flex w-full flex-wrap" onSubmit={handleSubmit(submit)}>
         <div className="flex flex-col w-full md:w-2/3 pr-4 ">
           <Input

@@ -27,6 +27,9 @@ export class AuthService {
       }
     } catch (error) {
       console.log("Appwrite error :: create account error :: ", error);
+      throw new Error(
+        error.message || "Failed to signup. Please check your credentials."
+      );
     }
   };
 
@@ -36,6 +39,9 @@ export class AuthService {
     } catch (error) {
       // throw error;
       console.log("Appwrite error :: login error :: ", error);
+      throw new Error(
+        error.message || "Failed to login. Please check your credentials."
+      );
     }
   };
 
@@ -62,12 +68,11 @@ export class AuthService {
   getUser = async (userId) => {
     try {
       return await this.account.get(userId);
-      
     } catch (error) {
       console.log("Appwrite error :: get user error :: ", error);
       return false;
     }
-  }
+  };
 }
 const authService = new AuthService();
 export default authService;

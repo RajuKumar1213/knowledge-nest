@@ -10,6 +10,8 @@ function Home() {
   const userData = useSelector((state) => state.auth.userData);
   const posts = useSelector((state) => state.post.posts.documents);
 
+  console.log(posts);
+
   useEffect(() => {
     if (userData) {
       appwriteService.getPosts().then((posts) => {
@@ -18,7 +20,11 @@ function Home() {
         }
       });
     }
-  }, [posts]);
+  }, []);
+
+  const userPost = posts?.filter((post) => post.userId === userData.$id);
+
+  console.log(userPost)
 
   return !userData ? (
     <div className="w-full py-8">
@@ -101,7 +107,7 @@ function Home() {
             <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-100 mb-8 text-center">
               📝 Your Contributions
             </h3>
-            {posts?.userId !== userData.$id && (
+            {userPost?.length === 0 && (
               <h2 className="text-xl text-center mb-4 ">
                 No Contribution yet, click on create new post to contribute.
               </h2>

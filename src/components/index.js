@@ -12,6 +12,7 @@ import PostCard from "./PostCard";
 import AuthLayout from "./AuthLayout";
 import ErrorPage from "./ErrorPage";
 import ScrollToTop from "./ScrollToTop";
+import Alert from "./Alert";
 
 export {
     Header,
@@ -27,5 +28,6 @@ export {
     PostCard,
     AuthLayout,
     ErrorPage,
-    ScrollToTop
+    ScrollToTop,
+    Alert
 }

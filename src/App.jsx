@@ -24,7 +24,7 @@ function App() {
         }
       });
     }
-  }, [posts]);
+  }, []);
 
   useEffect(() => {
     authService

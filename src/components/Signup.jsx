@@ -6,12 +6,14 @@ import { useDispatch } from "react-redux";
 import { login as storeLogin } from "../store/authSlice";
 import authService from "../appwrite/auth";
 import spinner from "/spinner.svg";
+import {showAlert} from "../store/alertSlice"
 
 function Signup() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+
 
   const {
     register,
@@ -30,13 +32,14 @@ function Signup() {
           if (userData) {
             authService.getCurrentUser().then((userData) => {
               dispatch(storeLogin(userData));
+              dispatch(showAlert({message:"Signup Successfully",type:"success"}))
               navigate("/");
               setLoading(false);
             });
           }
         })
         .catch((err) => {
-          setError(err.message);
+          setError(err.message || "Failed to signup. Please check the credentials.");
           setLoading(false);
         });
     }
