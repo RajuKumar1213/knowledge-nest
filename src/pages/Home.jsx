@@ -10,7 +10,6 @@ function Home() {
   const userData = useSelector((state) => state.auth.userData);
   const posts = useSelector((state) => state.post.posts.documents);
 
-  console.log(posts);
 
   useEffect(() => {
     if (userData) {
@@ -23,8 +22,6 @@ function Home() {
   }, []);
 
   const userPost = posts?.filter((post) => post?.userId === userData?.$id);
-
-  console.log(userPost)
 
   return !userData ? (
     <div className="w-full py-8">

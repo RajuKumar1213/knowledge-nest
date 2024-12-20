@@ -26,7 +26,7 @@ const Alert = () => {
 
   return (
     <div
-      className={`h-12 md:h-12 md:fixed md:top-16 md:right-0 max-w-sm min-w-full sm:max-w-xs p-4 rounded-lg shadow-lg transform transition-transform duration-500 ease-in-out bg-gray-900 text-white flex items-center z-50 border-2 ${alertColors[type]} ${
+      className={`h-12 md:h-12 md:fixed md:top-16 md:right-0 max-w-sm min-w-full md:min-w-60 mr-8 p-4 rounded-lg shadow-lg transform transition-transform duration-500 ease-in-out bg-gray-950 text-white flex items-center z-50 border-2 ${alertColors[type]} ${
         isVisible ? "translate-x-0" : "translate-x-full"
       }`}
     >
