@@ -6,14 +6,13 @@ import { useDispatch } from "react-redux";
 import { login as storeLogin } from "../store/authSlice";
 import authService from "../appwrite/auth";
 import spinner from "/spinner.svg";
-import {showAlert} from "../store/alertSlice"
+import { showAlert } from "../store/alertSlice";
 
 function Signup() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-
 
   const {
     register,
@@ -32,21 +31,25 @@ function Signup() {
           if (userData) {
             authService.getCurrentUser().then((userData) => {
               dispatch(storeLogin(userData));
-              dispatch(showAlert({message:"Signup Successfully",type:"success"}))
+              dispatch(
+                showAlert({ message: "Signup Successfully", type: "success" })
+              );
               navigate("/");
               setLoading(false);
             });
           }
         })
         .catch((err) => {
-          setError(err.message || "Failed to signup. Please check the credentials.");
+          setError(
+            err.message || "Failed to signup. Please check the credentials."
+          );
           setLoading(false);
         });
     }
   };
 
   return (
-    <div className="flex items-center justify-center text-white">
+    <div className="flex items-center justify-center text-white pt-10 md:pt-20">
       <div className="w-full max-w-md p-8 space-y-6 bg-gray-800 bg-opacity-90 rounded-lg shadow-lg">
         {/* Logo */}
         <h1 className="text-3xl font-bold text-center">KnowledgeNest</h1>
@@ -119,7 +122,7 @@ function Signup() {
               The password is required and must be at least 6 characters.
             </span>
           )}
-         <Button type="submit" className="w-full">
+          <Button type="submit" className="w-full">
             {loading ? (
               <img src={spinner} alt="spinner" className="mx-auto h-6 w-6" />
             ) : (

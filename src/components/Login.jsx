@@ -43,7 +43,7 @@ function Login() {
   };
 
   return (
-    <div className="py-8 flex items-center justify-center text-white">
+    <div className="py-8 flex items-center justify-center text-white pt-10 md:pt-20">
       <div className="w-full max-w-md p-8 space-y-8 bg-gray-800 bg-opacity-90 rounded-lg shadow-lg">
         {/* Logo */}
         <h1 className="text-3xl font-bold text-center">KnowledgeNest</h1>

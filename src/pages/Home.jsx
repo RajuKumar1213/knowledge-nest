@@ -85,7 +85,7 @@ function Home() {
       </Container>
     </div>
   ) : (
-    <div className="w-full">
+    <div className="w-full pt-10 md:pt-20">
       <Container>
         <div className="flex flex-col items-center text-white  ">
           {/* Welcome Section */}
