@@ -49,7 +49,7 @@ function Header() {
 
   return (
     <>
-      <nav className="z-30 bg-gradient-to-r from-gray-800 via-gray-900 to-black text-white">
+      <nav className="w-full z-30 bg-gradient-to-r from-gray-800 via-gray-900 to-black text-white fixed block shadow-lg">
         <Container>
           <div className="container mx-auto flex items-center justify-between px-4">
             {/* Logo */}

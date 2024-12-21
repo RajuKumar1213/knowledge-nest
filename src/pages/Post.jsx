@@ -55,21 +55,23 @@ function Post() {
   };
 
   return !loading ? (
-    <div className="flex flex-col overflow-scroll md:overflow-hidden items-start w-full text-white rounded-lg  space-y-4 ">
+    <div className="flex flex-col overflow-scroll md:overflow-hidden items-start w-full text-white rounded-lg  space-y-4 mt-10 md:mt-20">
       {/* Buttons for adjusting text size */}
-      <div className="flex gap-x-4 w-full ">
-        <button
-          className="bg-gray-700 text-white px-4 py-2 rounded-md hover:bg-gray-600 active:bg-gray-800 focus:ring-2 focus:ring-gray-500"
-          onClick={() => setTextSize(textSize - 2)}
-        >
-          A-
-        </button>
-        <button
-          className="bg-gray-700 text-white px-4 py-2 rounded-md hover:bg-gray-600 active:bg-gray-800 focus:ring-2 focus:ring-gray-500"
-          onClick={() => setTextSize(textSize + 2)}
-        >
-          A+
-        </button>
+      <div className=" w-full">
+        <div className="  gap-x-4 flex ">
+          <button
+            className="bg-gray-700 text-white px-4 py-2 rounded-md hover:bg-gray-600 active:bg-gray-800 focus:ring-2 focus:ring-gray-500"
+            onClick={() => setTextSize(textSize - 2)}
+          >
+            A-
+          </button>
+          <button
+            className="bg-gray-700 text-white px-4 py-2 rounded-md hover:bg-gray-600 active:bg-gray-800 focus:ring-2 focus:ring-gray-500"
+            onClick={() => setTextSize(textSize + 2)}
+          >
+            A+
+          </button>
+        </div>
       </div>
 
       {/* Image Section */}

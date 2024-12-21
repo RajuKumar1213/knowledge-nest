@@ -10,7 +10,6 @@ function Home() {
   const userData = useSelector((state) => state.auth.userData);
   const posts = useSelector((state) => state.post.posts.documents);
 
-
   useEffect(() => {
     if (userData) {
       appwriteService.getPosts().then((posts) => {
@@ -23,14 +22,45 @@ function Home() {
 
   const userPost = posts?.filter((post) => post?.userId === userData?.$id);
 
-  return !userData ? (
-    <div className="w-full py-8">
+  return userData ? (
+    <div className="w-full py-10 md:py-20">
       <Container>
         <div className="flex justify-center">
           {userData ? (
-            <h1 className="font-bold text-2xl text-primary-dark">
-              No any articles to read. Use Add Post button to create a new post.
-            </h1>
+            <div className="min-w-full flex flex-col ">
+              <div className="text-center mb-4 md:flex md:gap-4 justify-center">
+                <div className="mb-4 md:mb-0">
+                  <Link to="/add-post">
+                    <button className="bg-blue-600 hover:bg-blue-800 text-white font-bold py-3 px-6 sm:px-8 rounded-md">
+                      ✍️ Create a New Post
+                    </button>
+                  </Link>
+                </div>
+                <Link to="/all-posts">
+                  <button className="bg-yellow-500 hover:bg-yellow-700 text-black font-bold py-3 px-6 sm:px-8 rounded-md">
+                    🌍 Explore All Posts
+                  </button>
+                </Link>
+              </div>
+              <div className="w-full">
+                <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-100 mb-8 text-center">
+                  📝 Your Contributions
+                </h3>
+              </div>
+              {userPost?.length == 0 ? (
+                <h1 className="md:text-2xl font-bold text-center text-gray-400">
+                  No contribution yet, Use create new post to contribute.
+                </h1>
+              ) : (
+                <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-2">
+                  {userPost?.map((post) => (
+                    <div key={post.$id} className="mb-4">
+                      <PostCard {...post} />
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
           ) : (
             <div className="flex flex-col items-center justify-center ">
               <h1 className="font-bold text-2xl text-primary-dark mb-8">
@@ -55,7 +85,7 @@ function Home() {
       </Container>
     </div>
   ) : (
-    <div className="w-full py-4">
+    <div className="w-full">
       <Container>
         <div className="flex flex-col items-center text-white  ">
           {/* Welcome Section */}
@@ -75,12 +105,12 @@ function Home() {
 
           {/* Call to Action Buttons */}
           <div className="text-center mb-4 flex flex-col sm:flex-row gap-4">
-            <Link to="/add-post">
+            <Link to="/login">
               <button className="bg-blue-600 hover:bg-blue-800 text-white font-bold py-3 px-6 sm:px-8 rounded-md">
                 ✍️ Create a New Post
               </button>
             </Link>
-            <Link to="/all-posts">
+            <Link to="/login">
               <button className="bg-yellow-500 hover:bg-yellow-700 text-black font-bold py-3 px-6 sm:px-8 rounded-md">
                 🌍 Explore All Posts
               </button>
@@ -104,29 +134,9 @@ function Home() {
             <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-100 mb-8 text-center">
               📝 Your Contributions
             </h3>
-            {userPost?.length === 0 && (
-              <h2 className="text-xl text-center mb-4 ">
-                No Contribution yet, click on create new post to contribute.
-              </h2>
-            )}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {posts ? (
-                posts
-                  .filter((post) => post.userId === userData?.$id)
-                  .map((post) => (
-                    <div
-                      key={post.$id}
-                      className="bg-gray-800  rounded-lg shadow-lg hover:shadow-xl transition-transform duration-300 transform hover:scale-105"
-                    >
-                      <PostCard {...post} />
-                    </div>
-                  ))
-              ) : (
-                <p className="text-center text-gray-400 col-span-full">
-                  No posts yet. Start your journey by creating a new post!
-                </p>
-              )}
-            </div>
+            <p className="text-center text-xl text-gray-400 col-span-full">
+              Please login to start contributing.
+            </p>
           </div>
         </div>
       </Container>

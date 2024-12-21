@@ -1,15 +1,25 @@
 import React, { useEffect, useState } from "react";
 import { Container, PostCard } from "../components";
 import appwriteService from "../appwrite/config";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { addPost } from "../store/postSlice";
 
 function AllPosts() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    appwriteService.getPosts().then((posts) => {
+      if (posts) {
+        dispatch(addPost(posts));
+      }
+    });
+  }, []);
+
   const posts = useSelector((state) => state.post.posts.documents);
 
   return (
-    <div>
+    <div className="py-10 md:py-20">
       <Container>
-        <div className="text-center mb-8 rounded-lg  py-4 text-white">
+        <div className="text-center mb-8 rounded-lg  text-white">
           <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-500 drop-shadow-md mb-4">
             Explore All Posts
           </h1>

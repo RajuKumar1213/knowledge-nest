@@ -14,8 +14,6 @@ function App() {
 
   const userStatus = useSelector((state) => state.auth.status);
 
-  const posts = useSelector((state) => state.post.posts.documents);
-
   useEffect(() => {
     if (userStatus === true) {
       appwriteService.getPosts().then((posts) => {
